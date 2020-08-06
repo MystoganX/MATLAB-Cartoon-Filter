@@ -26,13 +26,23 @@ A = imresize(im,[640 NaN],"AntiAliasing",true);
 [m,n,~] = size(A);
 imshow(A);
 %% 
-% The Anisotropic Diffusion consist of a filter that....
+% We select the parameters for the Anisotropic Difussion
 
-N = [0 1 0;0 -1 0;0 0 0];
-S = [0 0 0;0 -1 0;0 1 0];
-E = [0 0 0;0 -1 1;0 0 0];
-W = [0 0 0;1 -1 0;0 0 0];
-B = A;
+K = 15;
+N = 30;
+%% 
+% And now apply it to |image *A*|
 
-lambda =0.2;
-K = 10; T = 30;
+C = A;
+for i = 1:size(A,3)   
+    C(:,:,i) = imdiffusefilt(A(:,:,i),"GradientThreshold",K,"NumberOfIterations",N);
+end
+imshow(C);
+% montage({A,B});
+title(['Smoothing using Anisotropic Diffusion. \kappa = ' num2str(K) '. N = ' num2str(N)])
+%% 
+% *Alternative version* with my own implementation of the |Anisotropic Diffusion|
+
+lambda = 0.25;
+B = anisotropicDiffusion(A,lambda,K,T);
+imshow(B/255);
