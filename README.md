@@ -1,5 +1,7 @@
 # MATLAB-Cartoon Filter
 
+This time we're going to create a filter to give a cartoonish effect to any image we want, and how? With some basic Image Processing :D
+
 The general process can be summarized into the following steps:
 
 1. Defining and applying an **Anisotropic Diffusion filter**
