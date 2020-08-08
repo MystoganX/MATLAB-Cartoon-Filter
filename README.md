@@ -14,3 +14,8 @@ The general process can be summarized into the following steps:
 · *Recovering borders* and adding them do the filtered image
 
 · Profit
+
+1. Item 2
+1. Item 3
+   1. Item 3a
+   1. Item 3b
