@@ -12,3 +12,4 @@ The general process can be summarized into the following steps:
 
 Example of results:
 
+![alt text](https://github.com/MystoganX/MATLAB-Cartoon-Filter/blob/master/Images/Harlequin.png?raw=true)
