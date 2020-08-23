@@ -49,7 +49,7 @@ title(['Smoothing using Anisotropic Diffusion. \kappa = ' num2str(K) '. T = ' nu
 % For that we choose whether we want to use clustering over RGB or HSV values 
 % and the number of k-mean clusters
 
-n_clusters = 10;
+n_clusters = 2;
 colorspace = "RGB";
 %% 
 % With the selection we adapt our image to the corresponde color space
@@ -97,13 +97,24 @@ boundaries = bwboundaries(BW_filled);
 %% 
 % And finally we plot everything together
 
+figure('name','Final result',"WindowState","maximized") %
 imshow(im_clustered); hold on;
+
 for k=1:size(boundaries)
    b = boundaries{k};
    plot(b(:,2),b(:,1),'Color',[0.2 0.2 0.2],'LineWidth',1);
 end
 hold off;
-title(['Voila!' newline '\color{magenta}' char(colorspace) '\color{black} color space '...
-        'with \color{magenta}' num2str(n_clusters) '\color{black} clusters/color' ], "Interpreter","tex")
+% title(['Voila!' newline '\color{magenta}' char(colorspace) '\color{black} color space '...
+%        'with \color{magenta}' num2str(n_clusters) '\color{black} clusters/color' ], "Interpreter","tex")
+
+set(gca,'units','pixels')   % set the axes units to pixels
+x = get(gca,'position')     % get the position of the axes
+set(gcf,'units','pixels')   % set the figure units to pixels
+y = get(gcf,'position')     % get the figure position
+set(gcf,'position',[y(1) y(2) x(3) x(4)]) % set the position of the figure to the length and width of the axes
+set(gca,'units','normalized','position',[0 0 1 1]) % set the axes units to pixels
+
 F = getframe(gcf);
-[im_cartoon, ~] = frame2im(F);
+im_cartoon = F.cdata;
+montage({im_small,im_cartoon});
