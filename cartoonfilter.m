@@ -14,9 +14,10 @@ function [im_small,im_clustered,im_cartoon] = cartoonfilter(im, K, T, n_clusters
 %% 
 % Now we resize for simplicity and faster execution times _*(to be removed in 
 % final version)*_
-im_small = im;
 if(make_smaller)
     im_small = imresize(im,[640 NaN],"AntiAliasing",true);
+else
+    im_small = im;
 end
 [m,~,n_colors] = size(im_small);
 %% 
@@ -73,7 +74,13 @@ for k=1:size(boundaries)
     plot(b(:,2),b(:,1),'Color',[0.2 0.2 0.2],'LineWidth',1);
 end
 hold off;
+set(gca,'units','pixels')   % set the axes units to pixels
+x = get(gca,'position');     % get the position of the axes
+set(gcf,'units','pixels')   % set the figure units to pixels
+y = get(gcf,'position');    % get the figure position
+set(gcf,'position',[y(1) y(2) x(3) x(4)]) % set the position of the figure to the length and width of the axes
+set(gca,'units','normalized','position',[0 0 1 1]) % set the axes units to pixels
 F = getframe(gcf);
-[im_cartoon, ~] = frame2im(F);
+im_cartoon = F.cdata;
 close(gcf)
 end
